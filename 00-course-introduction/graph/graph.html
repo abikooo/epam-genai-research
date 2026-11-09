@@ -1,0 +1,53 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Vocabulary usage graph</title>
+<style>
+  body { font: 13px system-ui, sans-serif; margin: 16px; }
+  .legend span { margin-right: 18px; }
+  text.t { fill: #222; }
+</style>
+<h3>Vocabulary terms and where the report uses them</h3>
+<div class="legend">
+  <span style="color:#2b6cb0">&#9632; explicit (exact word)</span>
+  <span style="color:#dd6b20">&#9632; implicit (paraphrase)</span>
+  <span id="totals"></span>
+</div>
+<svg id="g"></svg>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<script src="stats.js"></script>
+<script>
+const W = 1300, rowH = 28, pad = 30;
+const H = STATS.terms.length * rowH + pad * 2;
+const svg = d3.select("#g").attr("width", W).attr("height", H);
+const xL = 260, xR = 720;
+const yt = name => pad + STATS.terms.indexOf(name) * rowH;
+const secStep = (H - pad * 2) / STATS.sections.length;
+const ys = name => pad + STATS.sections.indexOf(name) * secStep + secStep / 2;
+const maxV = d3.max(STATS.links, d => Math.max(d.explicit, d.implicit)) || 1;
+const w = d3.scaleLinear().domain([0, maxV]).range([1, 8]);
+
+const curve = (x1, y1, x2, y2) => {
+  const m = (x1 + x2) / 2;
+  return `M${x1},${y1} C${m},${y1} ${m},${y2} ${x2},${y2}`;
+};
+
+STATS.links.forEach(d => {
+  if (d.explicit) svg.append("path").attr("d", curve(xL, yt(d.term) - 2, xR, ys(d.section) - 2))
+    .attr("fill", "none").attr("stroke", "#2b6cb0").attr("opacity", .55).attr("stroke-width", w(d.explicit));
+  if (d.implicit) svg.append("path").attr("d", curve(xL, yt(d.term) + 2, xR, ys(d.section) + 2))
+    .attr("fill", "none").attr("stroke", "#dd6b20").attr("opacity", .55).attr("stroke-width", w(d.implicit));
+});
+
+STATS.terms.forEach(t => {
+  const tot = STATS.totals[t];
+  svg.append("text").attr("class", "t").attr("x", xL - 8).attr("y", yt(t) + 4)
+    .attr("text-anchor", "end").text(`${t}  (${tot.explicit} / ${tot.implicit})`);
+});
+STATS.sections.forEach(s => {
+  svg.append("text").attr("class", "t").attr("x", xR + 8).attr("y", ys(s) + 4).text(s);
+});
+
+const sum = k => d3.sum(Object.values(STATS.totals), t => t[k]);
+document.getElementById("totals").textContent =
+  `totals: explicit ${sum("explicit")}, implicit ${sum("implicit")}  (labels show explicit / implicit)`;
+</script>

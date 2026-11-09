@@ -1,0 +1,76 @@
+{
+    "hallucination": {
+      "variants": ["hallucinated", "hallucinate"],
+      "implicit": ["wrong answers", "clean-looking wrong number"]
+    },
+    "rag": {
+      "variants": [],
+      "implicit": ["retrieve passages", "retrieves enterprise content", "built-in retrieval"]
+    },
+    "llm": {
+      "variants": ["large language model"],
+      "implicit": ["generative models"]
+    },
+    "agent": {
+      "variants": [],
+      "implicit": ["autonomously"]
+    },
+    "benchmark": {
+      "variants": [],
+      "implicit": ["leaderboard"]
+    },
+    "semantic model": {
+      "variants": [],
+      "implicit": ["curated space", "Genie Spaces"]
+    },
+    "test oracle": {
+      "variants": [],
+      "implicit": ["expected values", "expected behavior"]
+    },
+    "low-resource": {
+      "variants": [],
+      "implicit": ["outside major languages"]
+    },
+    "code completion": { "variants": [], "implicit": [] },
+    "neural machine translation": {
+      "variants": [],
+      "implicit": []
+    },
+    "reinforcement learning": { "variants": [], "implicit": [] },
+    "brand voice": {
+      "variants": [],
+      "implicit": ["brand's voice"]
+    },
+    "translation memory": { "variants": [], "implicit": [] },
+    "glossary": {
+      "variants": ["glossaries"],
+      "implicit": []
+    },
+    "field experiment": {
+      "variants": [],
+      "implicit": []
+    },
+    "preregistered": { "variants": [], "implicit": [] },
+    "standard error": { "variants": [], "implicit": [] },
+    "unit test": {
+      "variants": [],
+      "implicit": ["unit and end-to-end tests"]
+    },
+    "sql dialect": { "variants": [], "implicit": [] },
+    "grounded": {
+      "variants": ["grounding"],
+      "implicit": ["citations"]
+    },
+    "context window": {
+      "variants": [],
+      "implicit": ["the technical challenge is context", "context from the whole project", "conversation context"]
+    },
+    "human in the loop": {
+      "variants": [],
+      "implicit": ["handing off to a person", "hand off to people", "human review", "human reviewer", "human approval steps"]
+    },
+    "guardrails": {
+      "variants": [],
+      "implicit": ["brand guidelines", "approval workflows", "permission controls", "access permissions", "human approval steps"]
+    }
+  }
